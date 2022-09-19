@@ -10,7 +10,7 @@ ipv6: false
 external-controller: 0.0.0.0:9090
 secret: ""
 hosts:
-external-ui: '/clash/clash-dashboard/'
+external-ui: '/root/.config/clash/clash-dashboard/'
 
 
 dns:
