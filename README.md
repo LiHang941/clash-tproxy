@@ -42,7 +42,7 @@
 2. 下载 docker-compose.yml
 
     ```bash
-    wget https://raw.githubusercontent.com/fei-ke/clash-tproxy/master/docker-compose.yml
+    wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/docker-compose.yml
     ```
 
 3. 修改参数

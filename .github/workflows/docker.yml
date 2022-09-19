@@ -29,8 +29,8 @@ jobs:
         id: docker_image_tag
         with:
           cond: ${{ steps.vars.outputs.branch == 'master' }}
-          if_true: "feikeke/clash-tproxy:latest"
-          if_false: "feikeke/clash-tproxy:${{ steps.vars.outputs.tag }}"
+          if_true: "lihang941/clash-tproxy:latest"
+          if_false: "lihang941/clash-tproxy:${{ steps.vars.outputs.tag }}"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:

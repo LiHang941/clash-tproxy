@@ -8,9 +8,10 @@ mode: rule
 log-level: info
 ipv6: false
 external-controller: 0.0.0.0:9090
-# external-ui: folder
 secret: ""
 hosts:
+external-ui: '/clash/clash-dashboard/'
+
 
 dns:
   enable: true

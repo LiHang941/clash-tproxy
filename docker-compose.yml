@@ -4,13 +4,13 @@ services:
     cap_add:
       - NET_ADMIN
     container_name: clash
-    image: feikeke/clash-tproxy
+    image: lihang941/clash-tproxy
     networks: 
       clash_macvlan:
         ipv4_address: 192.168.0.2 # 改成你想要的 IP 地址
     restart: always
     volumes:
-      - ./config.yaml:/root/.config/clash/config.yaml # 注意冒号前面改成你的clash配置文件的路径
+      - ./config.yaml:/clash/config.yaml # 注意冒号前面改成你的clash配置文件的路径
 networks:
   clash_macvlan:
     driver: macvlan

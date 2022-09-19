@@ -14,7 +14,7 @@ RUN apk add --no-cache \
     bash-completion && \
     rm -rf /var/cache/apk/* && \
     wget -O Country.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb && \
-    wget -O clash.gz https://github.com/Dreamacro/clash/releases/download/v1.10.0/clash-linux-amd64-v1.10.0.gz && \
+    wget -O clash.gz https://release.dreamacro.workers.dev/latest/clash-linux-amd64-latest.gz -O clash.gz && \
     gzip -d clash.gz && \
     chmod a+x clash && \
     wget -O clash-dashboard.zip https://github.com/Dreamacro/clash-dashboard/archive/refs/heads/gh-pages.zip && \
