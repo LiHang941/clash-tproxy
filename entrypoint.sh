@@ -1,44 +1,36 @@
 #!/bin/bash
 set -e
-reset_iptables(){
-    iptables -P INPUT ACCEPT
-    iptables -P FORWARD ACCEPT
-    iptables -P OUTPUT ACCEPT
-    iptables -t nat -F
-    iptables -t mangle -F
-    iptables -F
-    iptables -X
-}
+# Based on https://github.com/Kr328/kr328-clash-setup-scripts/blob/master/setup-clash-tun.sh
+# ipset create localnetwork hash:net
+# ipset add localnetwork 127.0.0.0/8
+# ipset add localnetwork 10.0.0.0/8
+# ipset add localnetwork 169.254.0.0/16
+# ipset add localnetwork 192.168.0.0/16
+# ipset add localnetwork 224.0.0.0/4
+# ipset add localnetwork 240.0.0.0/4
+# ipset add localnetwork 172.16.0.0/12
 
-set_clash_iptables(){
-    # 在 nat 表中创建新链
-    iptables -t nat -N CLASHRULE
+# ip tuntap add user root mode tun utun0
+# ip link set utun0 up
 
-    iptables -t nat -A CLASHRULE -p tcp --dport 1905 -j RETURN
+# ip route replace default dev utun0 table 0x162
 
-    iptables -t nat -A CLASHRULE -d 0.0.0.0/8 -j RETURN
-    iptables -t nat -A CLASHRULE -d 10.0.0.0/8 -j RETURN
-    iptables -t nat -A CLASHRULE -d 127.0.0.0/8 -j RETURN
-    iptables -t nat -A CLASHRULE -d 169.254.0.0/16 -j RETURN
-    iptables -t nat -A CLASHRULE -d 172.16.0.0/12 -j RETURN
-    iptables -t nat -A CLASHRULE -d 192.168.0.0/16 -j RETURN
-    iptables -t nat -A CLASHRULE -d 224.0.0.0/4 -j RETURN
-    iptables -t nat -A CLASHRULE -d 240.0.0.0/4 -j RETURN
-    iptables -t nat -A CLASHRULE -p tcp -j REDIRECT --to-ports 7892
+# ip rule add fwmark 0x162 lookup 0x162
 
-    #拦截 dns 请求并且转发!
-    iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53
-    iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53
+# iptables -t mangle -N CLASH
+# iptables -t mangle -F CLASH
+# iptables -t mangle -A CLASH -p tcp --dport 53 -j MARK --set-mark 0x162
+# iptables -t mangle -A CLASH -p udp --dport 53 -j MARK --set-mark 0x162
+# iptables -t mangle -A CLASH -m addrtype --dst-type BROADCAST -j RETURN
+# iptables -t mangle -A CLASH -m set --match-set localnetwork dst -j RETURN
+# iptables -t mangle -A CLASH -d 198.18.0.0/16 -j MARK --set-mark 0x162
+# iptables -t mangle -A CLASH -j MARK --set-mark 0x162
 
-    # 在 PREROUTING 链前插入 CLASHRULE 链,使其生效
-    iptables -t nat -A PREROUTING -p tcp -j CLASHRULE
-}
+# iptables -t mangle -I OUTPUT -j CLASH
+# iptables -t mangle -I PREROUTING -m set ! --match-set localnetwork dst -j MARK --set-mark 0x162
 
-reset_iptables
-set_clash_iptables
 
-#开启转发
-echo "1" > /proc/sys/net/ipv4/ip_forward
-ip addr
+# sysctl -w net/ipv4/ip_forward=1
+# sysctl -w net.ipv4.conf.utun0.rp_filter=0
 exec "$@"
 
