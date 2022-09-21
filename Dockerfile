@@ -9,6 +9,7 @@ RUN apk add --no-cache \
     ca-certificates  \
     bash  \
     ipset  \
+    ip6tables \
     curl \
     iptables  \
     bash-doc  \
