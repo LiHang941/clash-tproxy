@@ -10,7 +10,8 @@ RUN apk add --no-cache \
     bash  \
     ipset  \
     ip6tables \
-    iptables-extensions \
+    nftables  \
+    iproute2 \
     curl \
     iptables  \
     bash-doc  \
