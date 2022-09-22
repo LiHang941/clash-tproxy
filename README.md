@@ -1,12 +1,11 @@
 # clash-tproxy
 
-使用 Docker 和 clash 容器进行透明代理
+使用 Docker 和 clash 容器创建代理网关
 
 ## 特点
 
-- [x] IPv4 TCP 透明代理
-- [x] IPv4 UDP 透明代理
-- [x] FULL CONE NAT
+- [x] clash 网关
+
 
 ## 使用方法
 
@@ -25,7 +24,7 @@
     docker network create -d macvlan --subnet=<局域网的CIDR地址块> --gateway=<局域网的网关> -o parent=<网卡名> <macvlan网络名>
     ```
 
-3. 编写好 clash 的配置文件，必须将 Tproxy 端口设置为 7893, DNS端口设置为 53
+3. 编写好 clash 的配置文件，参考我的默认配置
 
 4. 运行容器
 
@@ -52,3 +51,9 @@
     ```bash
     docker-compose up -d
     ```
+
+5. 访问clash管理后天
+ 
+ ```
+ 网关IP:9090/ui/
+ ```

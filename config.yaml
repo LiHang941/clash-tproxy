@@ -8,29 +8,149 @@ mode: rule
 log-level: info
 ipv6: false
 external-controller: 0.0.0.0:9090
-secret: ""
-hosts:
 external-ui: '/root/.config/clash/clash-dashboard/'
+secret: ""
+
+# 支持安卓设备访问
+experimental:
+  sniff-tls-sni: true
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+
+interface-name: eth0                       # 出口网卡
+routing-mark: 7777                         # 路由mark
+ebpf:                                      # 使用ebpf
+  redirect-to-tun:
+    - eth0                                 # ebpf转发出口网卡
+
+tun:   # 启用tun模式
+  enable: true
+  stack: system
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  auto-detect-interface: true
 
 
 dns:
   enable: true
-  ipv6: false
-  listen: :53
-  enhanced-mode: redir-host
-  default-nameserver:
-    - 8.8.8.8
-    - 8.8.4.4
+  ipv6: false           # 当为false时，回复AAAA问题会为空
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip # 使用劫持模式
   nameserver:
     - 8.8.8.8
     - 8.8.4.4
-  fallback:
-    - tls://dns.rubyfish.cn:853
+  fake-ip-range: 10.0.0.1/8  # 默认为198.18.0.1/16, 由于本人有使用vpn, 更默认地址冲突
   fallback-filter:
     geoip: true
     ipcidr:
       - 240.0.0.0/4
       - 0.0.0.0/32
+  fake-ip-filter: # openclash 规则copy
+    - "*.lan"
+    - "*.localdomain"
+    - "*.example"
+    - "*.invalid"
+    - "*.localhost"
+    - "*.test"
+    - "*.local"
+    - "*.home.arpa"
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time-ios.apple.com
+    - time1.*.com
+    - time2.*.com
+    - time3.*.com
+    - time4.*.com
+    - time5.*.com
+    - time6.*.com
+    - time7.*.com
+    - ntp.*.com
+    - ntp1.*.com
+    - ntp2.*.com
+    - ntp3.*.com
+    - ntp4.*.com
+    - ntp5.*.com
+    - ntp6.*.com
+    - ntp7.*.com
+    - "*.time.edu.cn"
+    - "*.ntp.org.cn"
+    - "+.pool.ntp.org"
+    - time1.cloud.tencent.com
+    - music.163.com
+    - "*.music.163.com"
+    - "*.126.net"
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - "*.kuwo.cn"
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - y.qq.com
+    - "*.y.qq.com"
+    - streamoc.music.tc.qq.com
+    - mobileoc.music.tc.qq.com
+    - isure.stream.qqmusic.qq.com
+    - dl.stream.qqmusic.qq.com
+    - aqqmusic.tc.qq.com
+    - amobile.music.tc.qq.com
+    - "*.xiami.com"
+    - "*.music.migu.cn"
+    - music.migu.cn
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - msftconnecttest.com
+    - msftncsi.com
+    - localhost.ptlogin2.qq.com
+    - localhost.sec.qq.com
+    - "+.srv.nintendo.net"
+    - "*.n.n.srv.nintendo.net"
+    - "+.stun.playstation.net"
+    - xbox.*.*.microsoft.com
+    - "*.*.xboxlive.com"
+    - xbox.*.microsoft.com
+    - xnotify.xboxlive.com
+    - "+.battlenet.com.cn"
+    - "+.wotgame.cn"
+    - "+.wggames.cn"
+    - "+.wowsgame.cn"
+    - "+.wargaming.net"
+    - proxy.golang.org
+    - stun.*.*
+    - stun.*.*.*
+    - "+.stun.*.*"
+    - "+.stun.*.*.*"
+    - "+.stun.*.*.*.*"
+    - "+.stun.*.*.*.*.*"
+    - heartbeat.belkin.com
+    - "*.linksys.com"
+    - "*.linksyssmartwifi.com"
+    - "*.router.asus.com"
+    - mesu.apple.com
+    - swscan.apple.com
+    - swquery.apple.com
+    - swdownload.apple.com
+    - swcdn.apple.com
+    - swdist.apple.com
+    - lens.l.google.com
+    - stun.l.google.com
+    - "+.nflxvideo.net"
+    - "*.square-enix.com"
+    - "*.finalfantasyxiv.com"
+    - "*.ffxiv.com"
+    - "*.ff14.sdo.com"
+    - ff.dorado.sdo.com
+    - "*.mcdn.bilivideo.cn"
+    - "+.media.dssott.com"
+    - shark007.net
+
+
 proxies:
 
 proxy-providers:
