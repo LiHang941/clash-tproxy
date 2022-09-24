@@ -39,7 +39,7 @@ iptables -t mangle -A clash -p udp -j TPROXY --on-port 7893 --tproxy-mark 666
 iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to 1053
 
 # 如果想要 dig 等命令可用, 可以只处理 DNS SERVER 设置为当前内网的 DNS 请求
-#iptables -t nat -I PREROUTING -p udp --dport 53 -d 192.168.0.0/16 -j REDIRECT --to 1053
+iptables -t nat -I PREROUTING -p udp --dport 53 -d 192.168.0.0/16 -j REDIRECT --to 1053
 
 # 最后让所有流量通过 clash 链进行处理
 iptables -t mangle -A PREROUTING -j clash

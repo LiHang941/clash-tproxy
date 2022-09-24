@@ -17,14 +17,14 @@ experimental:
 
 dns:
   enable: true
-  ipv6: false           # 当为false时，回复AAAA问题会为空
+  ipv6: false           
   listen: 0.0.0.0:1053
-  enhanced-mode: fake-ip # 使用劫持模式
+  enhanced-mode: fake-ip
   nameserver:
     - 8.8.8.8
     - 8.8.4.4
-  fake-ip-range: 10.0.0.1/8  # 默认为198.18.0.1/16, 由于本人有使用vpn, 更默认地址冲突
-  fake-ip-filter: # openclash 规则copy
+  fake-ip-range: 198.18.0.1/16  
+  fake-ip-filter: 
     - "*.lan"
     - "*.localdomain"
     - "*.example"
