@@ -81,9 +81,7 @@ iptables -t nat -A PREROUTING -p icmp -d 198.18.0.0/16 -j DNAT --to-destination 
 
 # 禁止 QUIC
 iptables -N QUIC
-iptables -A QUIC -d yourvpsip -j ACCEPT
 iptables -A QUIC -j REJECT
 iptables -I FORWARD -i eth0 -p udp --dport 443 -j QUIC
-iptables -I FORWARD -i br-lan -p udp --dport 443 -j QUIC
 exec "$@"
 
