@@ -44,7 +44,14 @@
     wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/docker-compose.yml
     ```
 
-3. 修改参数
+
+
+3. 修改配置文件
+
+ ```
+   wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/config.yaml
+
+ ```
 
 4. 执行命令以启动容器
 

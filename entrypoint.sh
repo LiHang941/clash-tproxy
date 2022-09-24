@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
-sysctl -w net/ipv4/ip_forward=1
-
 # 教程 https://mritd.com/2022/02/06/clash-tproxy/
-
-
 # ENABLE ipv4 forward
 sysctl -w net.ipv4.ip_forward=1
 
