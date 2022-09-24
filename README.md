@@ -4,7 +4,7 @@
 
 ## 特点
 
-- [x] clash 网关
+- clash 网关,透明代理
 
 
 ## 使用方法
@@ -29,7 +29,7 @@
 4. 运行容器
 
     ```bash
-    docker run --name clash -d -v /your/path/config.yaml:/root/.config/clash/config.yaml  --network <macvlan网络名> --ip <容器IP地址> --cap-add=NET_ADMIN feikeke/clash-tproxy
+    docker run --name clash -d -v /your/path/config.yaml:/root/.config/clash/config.yaml  --network <macvlan网络名> --ip <容器IP地址> --cap-add=NET_ADMIN lihang941/clash-tproxy
     ```
 
 5. 将手机/电脑等客户端，网关和DNS设置为容器 IP

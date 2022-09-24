@@ -5,7 +5,7 @@ tproxy-port: 7893
 allow-lan: true
 bind-address: '*'
 mode: rule
-log-level: info
+log-level: warning
 ipv6: false
 external-controller: 0.0.0.0:9090
 external-ui: '/root/.config/clash/clash-dashboard/'
@@ -14,40 +14,16 @@ secret: ""
 # 支持安卓设备访问
 experimental:
   sniff-tls-sni: true
-profile:
-  store-selected: true
-  store-fake-ip: true
-
-
-interface-name: eth0                       # 出口网卡
-routing-mark: 7777                         # 路由mark
-ebpf:                                      # 使用ebpf
-  redirect-to-tun:
-    - eth0                                 # ebpf转发出口网卡
-
-tun:   # 启用tun模式
-  enable: true
-  stack: system
-  dns-hijack:
-    - any:53
-    - tcp://any:53
-  auto-detect-interface: true
-
 
 dns:
   enable: true
   ipv6: false           # 当为false时，回复AAAA问题会为空
-  listen: 0.0.0.0:53
+  listen: 0.0.0.0:1053
   enhanced-mode: fake-ip # 使用劫持模式
   nameserver:
     - 8.8.8.8
     - 8.8.4.4
   fake-ip-range: 10.0.0.1/8  # 默认为198.18.0.1/16, 由于本人有使用vpn, 更默认地址冲突
-  fallback-filter:
-    geoip: true
-    ipcidr:
-      - 240.0.0.0/4
-      - 0.0.0.0/32
   fake-ip-filter: # openclash 规则copy
     - "*.lan"
     - "*.localdomain"
