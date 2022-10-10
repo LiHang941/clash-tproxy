@@ -3,6 +3,8 @@ services:
   clash:
     cap_add:
       - NET_ADMIN
+    devices:
+      - /dev/net/tun
     container_name: clash
     image: lihang941/clash-tproxy
     networks: 

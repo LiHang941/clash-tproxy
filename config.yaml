@@ -11,9 +11,27 @@ external-controller: 0.0.0.0:9090
 external-ui: '/root/.config/clash/clash-dashboard/'
 secret: ""
 
-# 支持安卓设备访问
+
 experimental:
-  sniff-tls-sni: true
+  sniff-tls-sni: true # 支持安卓设备访问
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+interface-name: eth0                       # 出口网卡
+routing-mark: 7777                         # 路由mark
+ebpf:                                      # 使用ebpf
+  redirect-to-tun:
+    - eth0                                 # ebpf转发出口网卡
+
+tun:   # 启用tun模式
+  enable: true
+  stack: system
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  auto-detect-interface: true
+
 
 dns:
   enable: true
