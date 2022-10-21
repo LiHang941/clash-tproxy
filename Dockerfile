@@ -26,4 +26,4 @@ RUN apk add --no-cache \
     chmod a+x /usr/local/bin/entrypoint.sh 
     
 ENTRYPOINT ["entrypoint.sh"]
-CMD "./clash 2>&1 | tee -a clash.log"
+CMD ["./clash", "2>&1", "|", "tee","-a", "clash.log"]
