@@ -5,6 +5,7 @@ WORKDIR /root/.config/clash/
 # RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.15/main/" > /etc/apk/repositories
 COPY entrypoint.sh /usr/local/bin/
 COPY config.yaml /root/.config/clash/
+COPY run.sh /root/.config/clash/
 RUN apk add --no-cache \
     ca-certificates  \
     bash  \
@@ -26,4 +27,5 @@ RUN apk add --no-cache \
     chmod a+x /usr/local/bin/entrypoint.sh 
     
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["/bin/sh", "-c", "./clash", "2>&1", "|", "tee","-a", "/root/.config/clash/clash.log"]
+CMD ["/bin/sh", "-c", "bash run.sh 2>&1"]
+
