@@ -27,4 +27,4 @@ RUN apk add --no-cache \
     mkdir -p /logs
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["./clash >> /logs/out.log >  2>&1"]
+CMD ["./clash 2>&1 | tee -a /logs/clash.log"]
