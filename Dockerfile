@@ -21,9 +21,9 @@ RUN apk add --no-cache \
     wget -O clash.gz  https://release.dreamacro.workers.dev/latest/clash-linux-amd64-latest.gz && \
     gzip -d clash.gz && \
     chmod a+x clash && \
-    wget -O clash-dashboard.zip https://github.com/Dreamacro/clash-dashboard/archive/refs/heads/gh-pages.zip && \
+    wget -O clash-dashboard.zip https://github.com/haishanh/yacd/archive/gh-pages.zip && \
     unzip clash-dashboard.zip && rm clash-dashboard.zip && mv clash-dashboard-gh-pages clash-dashboard && \
     chmod a+x /usr/local/bin/entrypoint.sh 
     
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["./clash 2>&1 | tee -a clash.log"]
+CMD "./clash 2>&1 | tee -a clash.log"
