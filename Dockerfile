@@ -22,7 +22,7 @@ RUN apk add --no-cache \
     gzip -d clash.gz && \
     chmod a+x clash && \
     wget -O clash-dashboard.zip https://github.com/haishanh/yacd/archive/gh-pages.zip && \
-    unzip clash-dashboard.zip && rm clash-dashboard.zip && mv clash-dashboard-gh-pages clash-dashboard && \
+    unzip clash-dashboard.zip && rm clash-dashboard.zip && mv yacd-gh-pages clash-dashboard && \
     chmod a+x /usr/local/bin/entrypoint.sh 
     
 ENTRYPOINT ["entrypoint.sh"]
