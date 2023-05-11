@@ -6,7 +6,7 @@ services:
     devices:
       - /dev/net/tun
     container_name: clash
-    image: lihang941/clash-tproxy
+    image: lihang941/clash-tproxy:2.9.7
     networks: 
       clash_macvlan:
         ipv4_address: 192.168.0.2 # 改成你想要的 IP 地址
