@@ -5,24 +5,20 @@ services:
       - NET_ADMIN
     devices:
       - /dev/net/tun
+    privileged: true
     container_name: clash
-    image: lihang941/clash-tproxy:2.9.7
-    networks: 
-      clash_macvlan:
-        ipv4_address: 192.168.0.2 # 改成你想要的 IP 地址
+    image:  dockerproxy.com/lihang941/clash-tproxy:2.9.7
     restart: always
     volumes:
-     - ./config.yaml:/root/.config/clash/config.yaml # 注意冒号前面改成你的clash配置文件的路径
+      - ./config.yaml:/root/.config/clash/config.yaml
+      - ./run.sh:/root/.config/clash/run.sh
+    networks:
+      clash_network:
+        ipv4_address: <macvlan可用的自定义的IP地址>
+    dns:
+      - <主路由dns>
 networks:
-  clash_macvlan:
-    driver: macvlan
-    driver_opts:
-      parent: br-lan # 要桥接的网卡
-    ipam:
-      driver: default
-      config:
-        - subnet: "192.168.0.0/24" # 改成你的局域网的CIDR地址块
-          gateway: 192.168.0.1 # 改成你的网关
-  # br0:
-  #   external: # 如果你使用的是外部的 macvlan 网络，在这里引入
-  #     name: br0
+    clash_network:
+      external:
+        name: <macvlan别名>
+
