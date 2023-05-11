@@ -4,60 +4,40 @@
 
 ## 特点
 
-- clash 网关,透明代理
+- clash 透明网关
 
 
 ## 使用方法
 
-### docker
-
-1. 开启混杂模式
-
-    ```bash
-    ip a # 查看你的网卡名字，Openwrt一般是br-lan
-    ip link set <你的网卡名> promisc on
-    ```
-
-2. Docker 创建 macvlan 网络
-
-    ```bash
-    docker network create -d macvlan --subnet=<局域网的CIDR地址块> --gateway=<局域网的网关> -o parent=<网卡名> <macvlan网络名>
-    ```
-
-3. 编写好 clash 的配置文件，参考我的默认配置
-
-4. 运行容器
-
-    ```bash
-    docker run --name clash -d -v /your/path/config.yaml:/root/.config/clash/config.yaml  --network <macvlan网络名> --ip <容器IP地址> --cap-add=NET_ADMIN lihang941/clash-tproxy
-    ```
-
-5. 将手机/电脑等客户端，网关和DNS设置为容器 IP
 
 ### Docker Compose
 
-1. 确保你的 docker-compose 版本是 1.27 以上
+1. Docker 创建 macvlan 网络
 
-2. 下载 docker-compose.yml
+```bash
+docker network create -d macvlan --subnet=<局域网的CIDR地址块> --gateway=<局域网的网关> -o parent=<网卡名> <macvlan网络名>
+```
 
-    ```bash
-    wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/docker-compose.yml
-    ```
+
+2. 下载 docker-compose.yml,修改macvlan配置
+
+```bash
+wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/docker-compose.yml
+```
 
 
 
 3. 修改配置文件
 
- ```
-   wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/config.yaml
-
- ```
+```
+wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/config.yaml
+```
 
 4. 执行命令以启动容器
 
-    ```bash
-    docker-compose up -d
-    ```
+```bash
+docker-compose up -d
+```
 
 5. 访问clash管理后天
  
