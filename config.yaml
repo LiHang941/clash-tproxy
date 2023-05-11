@@ -5,44 +5,43 @@ tproxy-port: 7893
 allow-lan: true
 bind-address: '*'
 mode: rule
-log-level: warning
+log-level: error
 ipv6: false
 external-controller: 0.0.0.0:9090
 external-ui: '/root/.config/clash/clash-dashboard/'
 secret: ""
-
-
-experimental:
-  sniff-tls-sni: true # 支持安卓设备访问
 profile:
   store-selected: true
-  store-fake-ip: true
+  tracing: false
 
-interface-name: eth0                       # 出口网卡
-routing-mark: 7777                         # 路由mark
-ebpf:                                      # 使用ebpf
-  redirect-to-tun:
-    - eth0                                 # ebpf转发出口网卡
 
-tun:   # 启用tun模式
+interface-name: eth0
+
+tun:
   enable: true
   stack: system
   dns-hijack:
     - any:53
     - tcp://any:53
-  auto-detect-interface: true
-
+  auto-redir: true
+  auto-route: true
 
 dns:
   enable: true
-  ipv6: false           
-  listen: 0.0.0.0:1053
-  enhanced-mode: fake-ip
+  ipv6: false # 当为false时，回复AAAA问题会为空
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip # 使用劫持模式
+  default-nameserver:
+    - 8.8.8.8
   nameserver:
     - 8.8.8.8
-    - 8.8.4.4
-  fake-ip-range: 198.18.0.1/16  
-  fake-ip-filter: 
+  fake-ip-range: 198.18.0.1/16 
+  fake-ip-filter:
+    - "+.qq.*"
+    - "+.baidu.*"
+    - "+.feishu.*"
+    - "+.lark.*"
+    - "+.lihang2022.*"
     - "*.lan"
     - "*.localdomain"
     - "*.example"
@@ -71,6 +70,7 @@ dns:
     - ntp5.*.com
     - ntp6.*.com
     - ntp7.*.com
+
     - "*.time.edu.cn"
     - "*.ntp.org.cn"
     - "+.pool.ntp.org"
@@ -142,13 +142,4 @@ dns:
     - ff.dorado.sdo.com
     - "*.mcdn.bilivideo.cn"
     - "+.media.dssott.com"
-    - shark007.net
 
-
-proxies:
-
-proxy-providers:
-
-proxy-groups:
-
-rules:
