@@ -23,13 +23,6 @@ jobs:
         run: |
           echo ::set-output name=branch::${GITHUB_REF##*/}
           echo ::set-output name=tag::${GITHUB_REF##*/}
-      - name: Generate Docker image tag
-        uses: haya14busa/action-cond@v1
-        id: docker_image_tag
-        with:
-          cond: ${{ steps.vars.outputs.branch == 'master' }}
-          if_true: "lihang941/clash-tproxy:latest"
-          if_false: "lihang941/clash-tproxy:${{ steps.vars.outputs.tag }}"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -50,4 +43,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.docker_image_tag.outputs.value }} lihang941/clash-tproxy:latest
+          tags: lihang941/clash-tproxy:${{ steps.vars.outputs.tag }} lihang941/clash-tproxy:latest
