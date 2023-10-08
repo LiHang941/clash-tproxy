@@ -1,7 +1,6 @@
 name: Publish Docker Image
 on:
   push:
-    branches: [ "master" ]
     tags:
       - '*'
     paths-ignore:
