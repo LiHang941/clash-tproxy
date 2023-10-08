@@ -42,4 +42,6 @@ jobs:
           context: .
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: lihang941/clash-tproxy:${{ steps.vars.outputs.tag }} lihang941/clash-tproxy:latest
+          tags: |
+            lihang941/clash-tproxy:${{ steps.vars.outputs.tag }} 
+            lihang941/clash-tproxy:latest
