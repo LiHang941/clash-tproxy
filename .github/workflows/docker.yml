@@ -50,4 +50,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.docker_image_tag.outputs.value }}
+          tags: ${{ steps.docker_image_tag.outputs.value }} lihang941/clash-tproxy:latest
