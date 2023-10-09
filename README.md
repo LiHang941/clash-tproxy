@@ -1,5 +1,7 @@
 # clash-tproxy
 
+[DockerHub](https://hub.docker.com/r/lihang941/clash-tproxy)
+
 使用 Docker 和 clash 容器创建代理网关
 
 ## 特点
@@ -39,8 +41,8 @@ wget https://raw.githubusercontent.com/LiHang941/clash-tproxy/master/config.yaml
 docker-compose up -d
 ```
 
-5. 访问clash管理后天
+5. 访问clash管理后台
  
  ```
- 网关IP:9090/ui/
+ 容器IP:9090/ui/
  ```
